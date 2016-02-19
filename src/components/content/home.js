@@ -1,11 +1,14 @@
 import React from 'react';
+import moment from 'moment-timezone';
 
 class Home extends React.Component {
   render(){
+    var now = moment().tz("America/Chicago").format();
+    console.log(now);
     return (
       <div>
         <header>
-          Today is echo date("l, F j, Y")
+          <h2>Today is echo date("l, F j, Y")</h2>
         </header>
 
         <h1>Is There a 

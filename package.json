@@ -19,7 +19,7 @@
     "url": "git@github.com:micada/istherecubsgame.git"
   },
   "keywords": [],
-  "author": "Victor Kane",
+  "author": "Mica Alaniz, based on work by Victor Kane",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/micada/istherecubsgame/issues"
@@ -31,6 +31,7 @@
     "express": "^4.13.4",
     "history": "^1.13.1",
     "moment": "^2.11.2",
+    "moment-timezone": "^0.5.0",
     "morgan": "^1.6.1",
     "path": "^0.12.7",
     "react": "^0.14.7",
