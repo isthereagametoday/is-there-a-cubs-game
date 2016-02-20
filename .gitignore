@@ -27,6 +27,5 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
-public/js/bundle.js
-public/css/main.css
-public/css/bootstrap.min.css
+helpers/
+helpers/*

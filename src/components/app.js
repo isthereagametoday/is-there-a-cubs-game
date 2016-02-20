@@ -1,14 +1,12 @@
 import React from 'react';
-import Home from './content/home';
-import About from './content/about';
 
 class App extends React.Component {
-  render(){
+  render() {
     return (
-    	<div className="container">
-  	    {this.props.children}
-    	</div>
- 	  );
+      <div className="container">
+        {this.props.children}
+      </div>
+    );
   }
 }
 
