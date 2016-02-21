@@ -1,6 +1,6 @@
-var express = require('express')
+var express = require('express');
 var morgan = require('morgan');
-var serveStatic = require('serve-static')
+var serveStatic = require('serve-static');
 var bodyParser = require('body-parser');
 var path = require('path');
 
@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // bootstrap public/index.html
-app.use(serveStatic(__dirname + '/public'))
+app.use(serveStatic(__dirname + '/public'));
 
 // server-side router
 var router = express.Router();
@@ -63,17 +63,17 @@ var events = [{
     eventType: "Game"
   },
   {
-    eventDate: "4/19/2016",
+    eventDate: "2/21/2016",
     eventTime: "1:20 PM",
     eventType: "Game"
   },
   {
-    eventDate: "4/27/2016",
+    eventDate: "2/20/2016",
     eventTime: "7:05 PM",
     eventType: "Concert"
   },
   {
-    eventDate: "4/27/2016",
+    eventDate: "4/20/2016",
     eventTime: "7:05 PM",
     eventType: "Concert"
   },
