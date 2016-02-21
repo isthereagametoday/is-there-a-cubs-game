@@ -3,6 +3,7 @@
 A simple, tiny single-service website.
 
 - Todo list
+  - So in the first setState for init(), if the filtered Result array comes back undefined, I get an error because result.eventTime is not defined, and instead of replaceState (which I wanted to do but will be depreciated) I'm re-setState-ing to the values the states have at getInitialSate, which seems the dumb but makes the error go away. Why is the setState getting called when result is undefined? Is there a better way to do this? I'm mutating the state to put it back to the way it was, no? 
   - Tests or test. Well, three tests for yes no and well? Just test the damn thing.
   - Webpack (using extract-text for prod styles, style-loader for dev styles)
   - RENDERING SERVER SIDE FOR SEO. THIS IS A BIG DEAL.
@@ -13,7 +14,7 @@ A simple, tiny single-service website.
   - Obvs. get an actual schedule and put it in the server.js where the array lives.
   - Look into the csv to json build tools I saw just so I don't spend a bunch of time converting the dates.
   - Does milligram's grid suck? Really? Because it might. I'm having to explicitly include a bunch of classes that I really feel I shouldn't. So look into FBG or something just for the grid. Is that all I'm using it for?
-  - Its lack of DRY because it's vanilla and not sass is enough on my nerves I think. I'm loading node-sass for a reason. 
+  - Milligram's lack of DRY because it's vanilla and not sass is enough on my nerves I think. I'm loading node-sass for a reason.
   - This. Is. Responsive. But. Not. Pretty. The text has got this crazy wide gutter on mobile that looks weird.
   - After I get webpack, add an autoprefixer. This is too simple to break because I'm in love with flexbox.
   - The about page should actually have stuff in it.
