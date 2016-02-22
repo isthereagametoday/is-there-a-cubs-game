@@ -24,7 +24,7 @@
   "author": "Mica Alaniz, based on work by Victor Kane",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/micada/istherecubsgame/issues"
+    "url": "https://github.com/micada/is-there-a-cubs-game/issues"
   },
   "homepage": "IsThisACubsGameToday.com",
   "dependencies": {
