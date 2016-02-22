@@ -7,8 +7,8 @@ import About from './components/content/about';
 
 const routes = (
 <Route path="/" component={App}>
-    <IndexRoute component={Home}/>
-    <Route path="about" component={About}/>
+    <IndexRoute component={Home} />
+    <Route path="about" component={About} />
 </Route>
 );
 
