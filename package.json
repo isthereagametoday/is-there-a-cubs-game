@@ -4,17 +4,18 @@
   "description": "Using React-Starter: A minimalist latest version react, react-router, redux and auth plus node static and api server skeleton, an exploration for personal use",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "tests": "karma start",
     "start": "node server.js",
     "lint-js": "./node_modules/eslint/bin/eslint.js . --ext .jsx,.js",
-    "lint-css": "stylelint 'styles/milligram.min.css'",
+    "lint-css": "stylelint 'styles/cubsgame.scss'",
     "lint": "npm run lint-css && npm run lint-js",
     "build-js": "mkdir -p public/js && browserify src/main.js -t babelify --outfile public/js/bundle.js",
-    "build-css": "mkdir -p public/css && node-sass --output-style compressed styles/milligram.min.css public/css/main.css",
-    "build": "npm run build-js && npm run build-css",
+    "build-css": "mkdir -p public/css && node-sass --output-style compressed styles/cubsgame.scss public/css/main.css",
+    "build": "node ./node_modules/webpack/bin/webpack.js --verbose --colors --display-error-details --config webpack.prod.config.js",
+    "postinstall": "npm run build",
     "watch-js": "watchify src/main.js -t babelify --outfile public/js/bundle.js -v",
     "watch-css": "nodemon -e scss -x 'npm run build-css'",
-    "watch": "parallelshell 'npm run watch-css' 'npm run watch-js' 'npm start'"
+    "watch": "npm run start & webpack-dev-server --progress --color"
   },
   "repository": {
     "type": "git",
@@ -40,7 +41,9 @@
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-router": "^1.0.3",
-    "serve-static": "^1.10.2"
+    "serve-static": "^1.10.2",
+    "webpack": "^1.12.13",
+    "webpack-require": "0.0.16"
   },
   "devDependencies": {
     "babel-eslint": "^5.0.0",
@@ -50,16 +53,20 @@
     "eslint": "^2.2.0",
     "eslint-config-airbnb": "*",
     "eslint-plugin-react": "^4.0.0",
-    "jasmine-core": "*",
-    "karma": "*",
-    "karma-jasmine": "*",
-    "jasmine": "*",
-    "karma-phantomjs-launcher": "*",
+    "jasmine": "^2.4.1",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.21",
+    "karma-jasmine": "^0.3.7",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-webpack": "^1.7.0",
     "node-sass": "^3.4.2",
     "nodemon": "^1.9.0",
     "parallelshell": "^2.0.0",
+    "phantomjs-prebuilt": "^2.1.4",
+    "react-hot-loader": "^1.3.0",
     "stylelint": "^4.4.0",
-    "stylelint-config-standard": "^3.0.0"
+    "stylelint-config-standard": "^3.0.0",
+    "webpack-dev-server": "^1.14.1"
   },
   "babel": {
     "presets": [
