@@ -1,15 +1,13 @@
 var path = require('path');
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: [
-    'webpack-dev-server/client?http://0.0.0.0:3000/',
-    'webpack/hot/only-dev-server',
-    './src/main.js',
-  ],
+  entry: {
+    bundle: './',
+  },
   output: {
     path: path.join(__dirname, 'public'),
-    publicPath: 'http://0.0.0.0:3000/',
     filename: 'bundle.js',
   },
   resolve: {
@@ -21,34 +19,28 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: ['react-hot', 'babel'],
+        loaders: ['babel'],
       },
       {
         test: /\.scss?$/,
-        loader: 'style!css!sass',
+        loader: ExtractTextPlugin.extract('css!sass'),
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/,
-        loader: 'url-loader?limit=100000',
+        loaders: ['url-loader?limit=100000'],
       },
       {
-        test: /\.(json|woff|woff2|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/,
-        loader: 'url-loader?limit=100000',
+        test: /\.(png|svg)(\?[a-z0-9=\.]+)?$/,
+        loaders: ['file?name=[name].[ext]'],
       },
+      { test: /\.json$/, loader: 'json-loader' },
     ],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin('style.css', {
+      allChunks: true,
+    }),
   ],
-  devtool: 'inline-source-map',
-  devServer: {
-    hot: true,
-    proxy: {
-      '*': 'http://0.0.0.0:3000',
-    },
-    host: '0.0.0.0',
-  },
   node: {
     console: 'empty',
     fs: 'empty',
