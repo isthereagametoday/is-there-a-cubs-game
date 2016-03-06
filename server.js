@@ -3,6 +3,7 @@ var morgan = require('morgan');
 var serveStatic = require('serve-static');
 var bodyParser = require('body-parser');
 var path = require('path');
+var _ = require('underscore');
 
 // web app middleware
 var app = express();
@@ -23,7 +24,7 @@ var router = express.Router();
 
 // some doc data to serve via REST api
 var events = [{
-    eventDate: "2/18/2016",
+    eventDate: "2016-03-07",
     eventTime: "7:05 PM",
     eventType: "Game"
   },
@@ -85,11 +86,12 @@ router.get('/events', function(req, res) {
 })
 
 // GET ./api/doc/:id
-//router.get('/events/:id', function(req, res) {
- //   res.send(_.where(docs, {
-  //      id: req.params.id
-   // }));
-//})
+router.get('/events/:date', function(req, res) {
+  var date = req.params.date;
+  console.log('request:', date);
+   res.send(_.filter(events, function(event) { 
+    return event.eventDate === date}))
+})
 
 app.use('/api', router);
 

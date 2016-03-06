@@ -32,25 +32,18 @@ class Home extends React.Component {
   }
 
   init() {
-    dateUtils.getDates().then((events) => {
-      const now = this.now('M/D/YYYY');
-
-      const result = events.data.filter(event =>
-        event.eventDate === now)[0];
-
-      if (result !== 'undefined') {
-        this.setState({
-          result: true,
-          time: result.eventTime,
-          type: result.eventType,
-        });
-      } else {
-        this.setState({
-          result: false,
-          time: null,
-          type: null,
-        });
-      }
+    const now = this.now().substr(0, 10);
+    console.log('time:', now);
+    dateUtils.getDate(now).then((date) => {
+      console.log(date);
+      this.setState({
+        result: true,
+        time: date.data[0].eventTime,
+        type: date.data[0].eventType,
+      });
+    },
+    (error) => {
+      console.log('error:', error);
     });
   }
 
