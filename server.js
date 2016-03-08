@@ -3,7 +3,6 @@ var morgan = require('morgan');
 var serveStatic = require('serve-static');
 var bodyParser = require('body-parser');
 var path = require('path');
-var _ = require('underscore');
 
 // web app middleware
 var app = express();
@@ -88,10 +87,18 @@ router.get('/events', function(req, res) {
 // GET ./api/doc/:id
 router.get('/events/:date', function(req, res) {
   var date = req.params.date;
-  console.log('request:', date);
-   res.send(_.filter(events, function(event) { 
-    return event.eventDate === date}))
+  var check = events.filter(function(event) { 
+    return event.eventDate === date
+  });
+  console.log('check: ', check);
+  console.log('date: ', date);
+  if (check.length > 0) {
+    res.send(check)
+  } else {
+    res.sendStatus(418);
+  }
 })
+    
 
 app.use('/api', router);
 

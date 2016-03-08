@@ -1,6 +1,4 @@
 import React from 'react';
-import moment from 'moment';
-import tz from 'moment-timezone'; // eslint-disable-line no-unused-vars
 
 // components
 
@@ -27,15 +25,10 @@ class Home extends React.Component {
     this.init();
   }
 
-  now(format) {
-    return moment().tz('America/Chicago').format(format);
-  }
-
   init() {
-    const now = this.now().substr(0, 10);
+    const now = dateUtils.getToday().substr(0, 10);
     console.log('time:', now);
     dateUtils.getDate(now).then((date) => {
-      console.log(date);
       this.setState({
         result: true,
         time: date.data[0].eventTime,
@@ -67,7 +60,7 @@ class Home extends React.Component {
     return (
       <div className="row middle-xsmall center-xsmall">
         <div className="column-xsmall">
-        <Header now={this.now} />
+        <Header />
           {status}
 
           <Nav link />
