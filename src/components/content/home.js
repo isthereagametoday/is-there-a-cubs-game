@@ -27,8 +27,25 @@ class Home extends React.Component {
 
   init() {
     const now = dateUtils.getToday().substr(0, 10);
+    const status = dateUtils.getDate(now);
     console.log('time:', now);
-    dateUtils.getDate(now).then((date) => {
+    console.log('status:', status);
+    if (status.length === 1) {
+      this.setState({
+        result: true,
+        multiple: false,
+        time: status.data[0].eventTime,
+        type: status.data[0].eventType,
+      });
+    } else if (status.length > 1) {
+      this.setState({
+        result: true,
+        multiple: true,
+        time: status.data[0].eventTime,
+        type: status.data[0].eventType,
+      });
+    }
+    status.then((date) => {
       this.setState({
         result: true,
         time: date.data[0].eventTime,
