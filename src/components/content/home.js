@@ -1,6 +1,4 @@
 import React from 'react';
-import moment from 'moment';
-import tz from 'moment-timezone'; // eslint-disable-line no-unused-vars
 
 // components
 
@@ -27,30 +25,35 @@ class Home extends React.Component {
     this.init();
   }
 
-  now(format) {
-    return moment().tz('America/Chicago').format(format);
-  }
-
   init() {
-    dateUtils.getDates().then((events) => {
-      const now = this.now('M/D/YYYY');
-
-      const result = events.data.filter(event =>
-        event.eventDate === now)[0];
-
-      if (result !== 'undefined') {
-        this.setState({
-          result: true,
-          time: result.eventTime,
-          type: result.eventType,
-        });
-      } else {
-        this.setState({
-          result: false,
-          time: null,
-          type: null,
-        });
-      }
+    const now = dateUtils.getToday().substr(0, 10);
+    const gameStatus = dateUtils.getDate(now);
+    console.log('time:', now);
+    console.log('status:', status);
+    if (gameStatus.length === 1) {
+      this.setState({
+        result: true,
+        multiple: false,
+        time: gameStatus.data[0].eventTime,
+        type: gameStatus.data[0].eventType,
+      });
+    } else if (gameStatus.length > 1) {
+      this.setState({
+        result: true,
+        multiple: true,
+        time: gameStatus.data[0].eventTime,
+        type: gameStatus.data[0].eventType,
+      });
+    }
+    //status.then((date) => {
+    //  this.setState({
+    //    result: true,
+    //    time: date.data[0].eventTime,
+    //    type: date.data[0].eventType,
+    //  });
+    //},
+    (error) => {
+      console.log('error:', error);
     });
   }
 
@@ -74,7 +77,7 @@ class Home extends React.Component {
     return (
       <div className="row middle-xsmall center-xsmall">
         <div className="column-xsmall">
-        <Header now={this.now} />
+        <Header />
           {status}
 
           <Nav link />

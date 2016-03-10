@@ -1,10 +1,13 @@
 import React from 'react';
 
+import dateUtils from '../../utils/date-utils';
+
 class Header extends React.Component {
   render() {
+    const now = dateUtils.getToday('dddd, MMMM Do, YYYY');
     return (
         <header>
-            <h2>Today is {this.props.now('dddd, MMMM Do, YYYY')}</h2>
+            <h2>Today is {now}</h2>
 
           <h1>Is There a
             <span className="c-neg"> C</span>

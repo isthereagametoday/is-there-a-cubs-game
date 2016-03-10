@@ -1,6 +1,6 @@
 import React from 'react';
-import moment from 'moment';
-import tz from 'moment-timezone'; // eslint-disable-line no-unused-vars
+
+// components
 
 import Nav from './nav';
 import Header from './header';
@@ -8,15 +8,11 @@ import Footer from './footer';
 
 class About extends React.Component {
 
-  now(format) {
-    return moment().tz('America/Chicago').format(format);
-  }
-
   render() {
     return (
       <div className="row">
         <div className="column-xsmall">
-          <Header now={this.now} />
+          <Header />
           <h3>Hello there.</h3>
           <p>
             Firstly, I would like to note that if you're actually a baseball fan
