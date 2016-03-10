@@ -41,7 +41,8 @@ class Home extends React.Component {
       this.setState({
         result: true,
         multiple: true,
-        time: gameStatus.data[0].eventTime,
+        number: gameStatus.length,
+        times: gameStatus.data.entries(),
         type: gameStatus.data[0].eventType,
       });
     }
@@ -59,11 +60,25 @@ class Home extends React.Component {
 
   render() {
     let status;
-    if (this.state.result) {
+    const result = this.state.result;
+    const multiple = this.state.multiple;
+    if (result && !multiple) {
       switch (this.state.type) {
         case 'Game':
           status = <h2 className="c-pos">YES at {this.state.time}.</h2>;
           break;
+
+        default:
+          status =
+          <h2 className="c-pos">Well, there's a {this.state.type} at {this.state.time}.</h2>;
+          break;
+      }
+    } else if (result && multiple) {
+        switch (this.state.type) {
+          case 'Game':
+            status = <h2 className="c-pos">YES. There are actually {this.state.number} 
+            games today, at {this.state.times.value}.</h2>;
+            break;
 
         default:
           status =
