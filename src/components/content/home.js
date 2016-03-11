@@ -9,6 +9,7 @@ import Footer from './footer';
 
 // utils
 
+import apiUtils from '../../utils/api-utils';
 import dateUtils from '../../utils/date-utils';
 
 class Home extends React.Component {
@@ -27,7 +28,7 @@ class Home extends React.Component {
 
   init() {
     const now = dateUtils.getToday().substr(0, 10);
-    const gameStatus = dateUtils.getDate(now);
+    const gameStatus = apiUtils.getDate(now);
     console.log('time:', now);
     gameStatus.then((date) => {
       let status = date.data;
