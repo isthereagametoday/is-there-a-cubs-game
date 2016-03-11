@@ -29,32 +29,40 @@ class Home extends React.Component {
     const now = dateUtils.getToday().substr(0, 10);
     const gameStatus = dateUtils.getDate(now);
     console.log('time:', now);
-    console.log('status:', status);
-    if (gameStatus.length === 1) {
-      this.setState({
-        result: true,
-        multiple: false,
-        time: gameStatus.data[0].eventTime,
-        type: gameStatus.data[0].eventType,
-      });
-    } else if (gameStatus.length > 1) {
-      this.setState({
-        result: true,
-        multiple: true,
-        number: gameStatus.length,
-        times: gameStatus.data.entries(),
-        type: gameStatus.data[0].eventType,
-      });
-    }
-    //status.then((date) => {
-    //  this.setState({
-    //    result: true,
-    //    time: date.data[0].eventTime,
-    //    type: date.data[0].eventType,
-    //  });
-    //},
+    gameStatus.then((date) => {
+      let status = date.data;
+      console.log('status:', status);
+      console.log('time:', status[0].eventTime);
+      console.log('type:', status[0].eventType);
+      if (status.length === 1) {
+        this.setState({
+          result: true,
+          multiple: false,
+          time: status[0].eventTime,
+          type: status[0].eventType,
+        });
+      } else if (status.length > 1) {
+        const times = status.map(function(date) {
+            return date.eventTime;
+          });
+        console.log('times:', times);
+        this.setState({
+          result: true,
+          multiple: true,
+          number: status.length,
+          times: times,
+          type: status[0].eventType,
+        });
+      }
+    }),
     (error) => {
       console.log('error:', error);
+    };
+  }
+
+  multipleTimes(times){
+    times.forEach(function(entry) {
+        console.log(entry);
     });
   }
 
@@ -62,9 +70,10 @@ class Home extends React.Component {
     let status;
     const result = this.state.result;
     const multiple = this.state.multiple;
+    console.log(this.state);
     if (result && !multiple) {
       switch (this.state.type) {
-        case 'Game':
+        case 'game':
           status = <h2 className="c-pos">YES at {this.state.time}.</h2>;
           break;
 
@@ -74,15 +83,15 @@ class Home extends React.Component {
           break;
       }
     } else if (result && multiple) {
-        switch (this.state.type) {
-          case 'Game':
-            status = <h2 className="c-pos">YES. There are actually {this.state.number} 
-            games today, at {this.state.times.value}.</h2>;
-            break;
+      let times = this.state.times;
+      switch (this.state.type) {
+        case 'game':
+          status = <h2 className="c-pos">YES. There are actually {this.state.number} games today, at {this.multipleTimes(times)}.</h2>;
+          break;
 
         default:
           status =
-          <h2 className="c-pos">Well, there's a {this.state.type} at {this.state.time}.</h2>;
+          <h2 className="c-pos">There's a {this.state.type} at {this.state.time}.</h2>;
           break;
       }
     } else {

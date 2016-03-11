@@ -28,6 +28,16 @@ var events = [{
     eventType: "game",
   },
   {
+    eventDate: "2016-03-10",
+    eventTime: "07:05 PM",
+    eventType: "game",
+  },
+  {
+    eventDate: "2016-03-10",
+    eventTime: "06:30 PM",
+    eventType: "game",
+  },
+  {
     eventDate: "2016-04-13",
     eventTime: "07:05 PM",
     eventType: "game",
@@ -324,7 +334,7 @@ var events = [{
   },
   {
     eventDate: "2016-08-14",
-    eventTime: "".
+    eventTime: "",
     eventType: "game",
   },
   {
@@ -426,8 +436,7 @@ var events = [{
     eventDate: "2016-09-25",
     eventTime: "",
     eventType: "game",
-  }
-];
+  }];
 
 // GET ./api/docs
 router.get('/events', function(req, res) {
