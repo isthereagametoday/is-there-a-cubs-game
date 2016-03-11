@@ -19,7 +19,7 @@ class Home extends React.Component {
       result: false,
       number: null,
       time: null,
-      type: null,
+      times: null,
     };
   }
 
@@ -43,7 +43,6 @@ class Home extends React.Component {
         this.setState({
           result: true,
           time: status[0].eventTime,
-          type: status[0].eventType,
         });
       } else if (status.length > 1) {
         const eventTimes = status.map(d => d.eventTime);
@@ -53,7 +52,6 @@ class Home extends React.Component {
           result: true,
           number: status.length,
           times: eventTimes,
-          type: status[0].eventType,
         });
       }
     },
@@ -74,33 +72,13 @@ class Home extends React.Component {
     let status;
     const result = this.state.result;
     const number = this.state.number;
-    if (result && !number) {
-      switch (this.state.type) {
-        case 'game':
-          status = <h2 className="c-pos">YES at {this.state.time}.</h2>;
-          break;
-
-        default:
-          status =
-          <h2 className="c-pos">Well, there's a {this.state.type} at {this.state.time}.</h2>;
-          break;
-      }
-    } else if (result && number) {
-      const times = this.state.times;
-      switch (this.state.type) {
-        case 'game':
-          status = (
-            <h2 className="c-pos">
-            YES. There are actually {this.state.number} games today, at {this.multipleTimes(times)}.
-            </h2>
-          );
-          break;
-
-        default:
-          status =
-          <h2 className="c-pos">There's a {this.state.type} at {this.multipleTimes(times)}.</h2>;
-          break;
-      }
+    const times = this.state.times;
+    if (result) {
+      status = (number) ?
+        <h2 className="c-pos">
+          YES. There are actually {this.state.number} games today, at {this.multipleTimes(times)}.
+        </h2>
+        : <h2 className="c-pos">YES at {this.state.time}.</h2>;
     } else {
       status = <h2 className="c-neg">NO.</h2>;
     }
