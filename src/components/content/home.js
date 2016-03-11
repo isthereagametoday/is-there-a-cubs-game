@@ -17,6 +17,7 @@ class Home extends React.Component {
     super();
     this.state = {
       result: false,
+      multiple: false,
       time: null,
       type: null,
     };
@@ -46,18 +47,20 @@ class Home extends React.Component {
           time: status[0].eventTime,
           type: status[0].eventType,
         });
-      } else if (status.length > 1) {
-        const times = status.map(function(date) {
-            return date.eventTime;
-          });
 
-        console.log('times:', times);
+      } else if (status.length > 1) {
+
+        const eventTimes = status.map(function(date) {
+          return date.eventTime;
+        });
+
+        console.log('times:', eventTimes);
         
         this.setState({
           result: true,
           multiple: true,
           number: status.length,
-          times: times,
+          times: eventTimes,
           type: status[0].eventType,
         });
       }
@@ -67,10 +70,12 @@ class Home extends React.Component {
     };
   }
 
-  multipleTimes(times){
-    times.forEach(function(entry) {
-        console.log(entry);
+  multipleTimes(times) {
+    let result = '';
+    times.forEach(function(t) {
+      result = (result === '') ? result + t : result + ' and ' + t;
     });
+    return result;
   }
 
   render() {
@@ -93,7 +98,10 @@ class Home extends React.Component {
       let times = this.state.times;
       switch (this.state.type) {
         case 'game':
-          status = <h2 className="c-pos">YES. There are actually {this.state.number} games today, at {this.multipleTimes(times)}.</h2>;
+          status = <h2 className="c-pos">
+            YES. There are actually {this.state.number} games
+            today, at {this.multipleTimes(times)}.
+          </h2>;
           break;
 
         default:
