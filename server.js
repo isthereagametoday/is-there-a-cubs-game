@@ -22,7 +22,18 @@ app.use(serveStatic(__dirname + '/public'));
 var router = express.Router();
 
 // some doc data to serve via REST api
-var events = [{
+var events = [
+  {
+    eventDate: "2016-03-10",
+    eventTime: "07:05 PM",
+    eventType: "game",
+  },
+  {
+    eventDate: "2016-03-10",
+    eventTime: "07:45 PM",
+    eventType: "game",
+  },
+  {
     eventDate: "2016-04-11",
     eventTime: "07:05 PM",
     eventType: "game",
@@ -324,7 +335,7 @@ var events = [{
   },
   {
     eventDate: "2016-08-14",
-    eventTime: "".
+    eventTime: "",
     eventType: "game",
   },
   {
@@ -426,8 +437,7 @@ var events = [{
     eventDate: "2016-09-25",
     eventTime: "",
     eventType: "game",
-  }
-];
+  }];
 
 // GET ./api/docs
 router.get('/events', function(req, res) {
@@ -442,11 +452,7 @@ router.get('/events/:date', function(req, res) {
   });
   console.log('check: ', check);
   console.log('date: ', date);
-  if (check.length > 0) {
-    res.send(check)
-  } else {
-    res.sendStatus(418);
-  }
+  res.send(check);
 })
     
 

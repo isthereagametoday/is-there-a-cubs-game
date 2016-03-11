@@ -9,6 +9,7 @@ import Footer from './footer';
 
 // utils
 
+import apiUtils from '../../utils/api-utils';
 import dateUtils from '../../utils/date-utils';
 
 class Home extends React.Component {
@@ -16,8 +17,9 @@ class Home extends React.Component {
     super();
     this.state = {
       result: false,
+      number: null,
       time: null,
-      type: null,
+      times: null,
     };
   }
 
@@ -27,49 +29,56 @@ class Home extends React.Component {
 
   init() {
     const now = dateUtils.getToday().substr(0, 10);
-    const gameStatus = dateUtils.getDate(now);
-    console.log('time:', now);
-    console.log('status:', status);
-    if (gameStatus.length === 1) {
-      this.setState({
-        result: true,
-        multiple: false,
-        time: gameStatus.data[0].eventTime,
-        type: gameStatus.data[0].eventType,
-      });
-    } else if (gameStatus.length > 1) {
-      this.setState({
-        result: true,
-        multiple: true,
-        time: gameStatus.data[0].eventTime,
-        type: gameStatus.data[0].eventType,
-      });
-    }
-    //status.then((date) => {
-    //  this.setState({
-    //    result: true,
-    //    time: date.data[0].eventTime,
-    //    type: date.data[0].eventType,
-    //  });
-    //},
+    const gameStatus = apiUtils.getDate(now);
+
+    console.log('now:', now);
+
+    gameStatus.then(date => {
+      const status = date.data;
+
+      console.log('status:', status);
+
+      // empty status falls through
+      if (status.length === 1) {
+        this.setState({
+          result: true,
+          time: status[0].eventTime,
+        });
+      } else if (status.length > 1) {
+        const eventTimes = status.map(d => d.eventTime);
+
+        console.log('times:', eventTimes);
+        this.setState({
+          result: true,
+          number: status.length,
+          times: eventTimes,
+        });
+      }
+    },
     (error) => {
       console.log('error:', error);
     });
   }
 
+  multipleTimes(times) {
+    let result = '';
+    times.forEach(t => {
+      result = (result === '') ? t : `${result} and ${t}`;
+    });
+    return result;
+  }
+
   render() {
     let status;
-    if (this.state.result) {
-      switch (this.state.type) {
-        case 'Game':
-          status = <h2 className="c-pos">YES at {this.state.time}.</h2>;
-          break;
-
-        default:
-          status =
-          <h2 className="c-pos">Well, there's a {this.state.type} at {this.state.time}.</h2>;
-          break;
-      }
+    const result = this.state.result;
+    const number = this.state.number;
+    const times = this.state.times;
+    if (result) {
+      status = (number) ?
+        <h2 className="c-pos">
+          YES. There are actually {this.state.number} games today, at {this.multipleTimes(times)}.
+        </h2>
+        : <h2 className="c-pos">YES at {this.state.time}.</h2>;
     } else {
       status = <h2 className="c-neg">NO.</h2>;
     }
