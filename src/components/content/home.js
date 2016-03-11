@@ -17,7 +17,7 @@ class Home extends React.Component {
     super();
     this.state = {
       result: false,
-      multiple: false,
+      number: null,
       time: null,
       type: null,
     };
@@ -42,7 +42,6 @@ class Home extends React.Component {
       if (status.length === 1) {
         this.setState({
           result: true,
-          multiple: false,
           time: status[0].eventTime,
           type: status[0].eventType,
         });
@@ -52,7 +51,6 @@ class Home extends React.Component {
         console.log('times:', eventTimes);
         this.setState({
           result: true,
-          multiple: true,
           number: status.length,
           times: eventTimes,
           type: status[0].eventType,
@@ -75,8 +73,8 @@ class Home extends React.Component {
   render() {
     let status;
     const result = this.state.result;
-    const multiple = this.state.multiple;
-    if (result && !multiple) {
+    const number = this.state.number;
+    if (result && !number) {
       switch (this.state.type) {
         case 'game':
           status = <h2 className="c-pos">YES at {this.state.time}.</h2>;
@@ -87,7 +85,7 @@ class Home extends React.Component {
           <h2 className="c-pos">Well, there's a {this.state.type} at {this.state.time}.</h2>;
           break;
       }
-    } else if (result && multiple) {
+    } else if (result && number) {
       const times = this.state.times;
       switch (this.state.type) {
         case 'game':
@@ -100,7 +98,7 @@ class Home extends React.Component {
 
         default:
           status =
-          <h2 className="c-pos">There's a {this.state.type} at {this.state.time}.</h2>;
+          <h2 className="c-pos">There's a {this.state.type} at {this.multipleTimes(times)}.</h2>;
           break;
       }
     } else {
