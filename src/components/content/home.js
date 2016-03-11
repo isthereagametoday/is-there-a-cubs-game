@@ -31,15 +31,14 @@ class Home extends React.Component {
     const now = dateUtils.getToday().substr(0, 10);
     const gameStatus = apiUtils.getDate(now);
 
-    console.log('time:', now);
+    console.log('now:', now);
 
-    gameStatus.then((date) => {
-      let status = date.data;
+    gameStatus.then(date => {
+      const status = date.data;
 
       console.log('status:', status);
 
       // empty status falls through
-      
       if (status.length === 1) {
         this.setState({
           result: true,
@@ -47,15 +46,10 @@ class Home extends React.Component {
           time: status[0].eventTime,
           type: status[0].eventType,
         });
-
       } else if (status.length > 1) {
-
-        const eventTimes = status.map(function(date) {
-          return date.eventTime;
-        });
+        const eventTimes = status.map(d => d.eventTime);
 
         console.log('times:', eventTimes);
-        
         this.setState({
           result: true,
           multiple: true,
@@ -64,16 +58,16 @@ class Home extends React.Component {
           type: status[0].eventType,
         });
       }
-    }),
+    },
     (error) => {
       console.log('error:', error);
-    };
+    });
   }
 
   multipleTimes(times) {
     let result = '';
-    times.forEach(function(t) {
-      result = (result === '') ? result + t : result + ' and ' + t;
+    times.forEach(t => {
+      result = (result === '') ? t : `${result} and ${t}`;
     });
     return result;
   }
@@ -82,7 +76,6 @@ class Home extends React.Component {
     let status;
     const result = this.state.result;
     const multiple = this.state.multiple;
-    console.log(this.state);
     if (result && !multiple) {
       switch (this.state.type) {
         case 'game':
@@ -95,13 +88,14 @@ class Home extends React.Component {
           break;
       }
     } else if (result && multiple) {
-      let times = this.state.times;
+      const times = this.state.times;
       switch (this.state.type) {
         case 'game':
-          status = <h2 className="c-pos">
-            YES. There are actually {this.state.number} games
-            today, at {this.multipleTimes(times)}.
-          </h2>;
+          status = (
+            <h2 className="c-pos">
+            YES. There are actually {this.state.number} games today, at {this.multipleTimes(times)}.
+            </h2>
+          );
           break;
 
         default:
