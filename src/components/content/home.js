@@ -29,12 +29,16 @@ class Home extends React.Component {
   init() {
     const now = dateUtils.getToday().substr(0, 10);
     const gameStatus = apiUtils.getDate(now);
+
     console.log('time:', now);
+
     gameStatus.then((date) => {
       let status = date.data;
+
       console.log('status:', status);
-      console.log('time:', status[0].eventTime);
-      console.log('type:', status[0].eventType);
+
+      // empty status falls through
+      
       if (status.length === 1) {
         this.setState({
           result: true,
@@ -46,7 +50,9 @@ class Home extends React.Component {
         const times = status.map(function(date) {
             return date.eventTime;
           });
+
         console.log('times:', times);
+        
         this.setState({
           result: true,
           multiple: true,
