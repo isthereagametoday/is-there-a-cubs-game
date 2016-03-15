@@ -22,8 +22,7 @@ app.use(serveStatic(__dirname + '/public'));
 var router = express.Router();
 
 // some doc data to serve via REST api
-var events = [
-  {
+var events = [{
     eventDate: "2016-03-10",
     eventTime: "07:05 PM",
     eventType: "game",
