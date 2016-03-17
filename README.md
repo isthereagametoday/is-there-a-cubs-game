@@ -3,9 +3,8 @@
 A simple, tiny single-service website.
 
 Todo list:
-
-  - Set up Heroku.
-   - Look into npm-twitter for posting tweets.
+  - Set up heroku scheduler for tweets with the twitter bin script from npm-twitter or just node twitter.js. Don't care, just get 'er done.
+  - Add support for eventType, since I said I would push that til after launch and I launched.
   - Tests or test. Well, three tests for yes no and well? Just test the damn thing.
     - Started by installing Jasmine and Karma today (2/21).
 
@@ -22,6 +21,8 @@ Stuff I am waiting on:
 
 Stuff that is flat-out done:
   
+  - _Set up Heroku._
+    - **Done, with the to-do branch for staging and master for production in the Pipeline. Also got the DNS pointed correctly, so don't eff up master anymore, please Mica. Love, Mica** 
   - _Should I move the smaller components into a directory, leaving the large views in another (About/Home vs header/footer/nav/seo)? Probably. Make sure to resolve the paths in webpack so I'm not having to put relative path everywhere._
   - _So in the first setState for init(), if the filtered Result array comes back undefined, I get an error because result.eventTime is not defined, and instead of replaceState (which I wanted to do but will be depreciated) I'm re-setState-ing to the values the states have at getInitialSate, which seems the dumb but makes the error go away. Why is the setState getting called when result is undefined? Is there a better way to do this? I'm mutating the state to put it back to the way it was, no?_
    - _Got started on this with the server response, still need to add logic for what to do when an array > 1._
