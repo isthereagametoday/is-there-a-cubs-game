@@ -84,20 +84,21 @@ class About extends React.Component {
             Apologies for the kerfuffle that was last year (2015), I didn't care enough to update
             the game data, nor was I prepared for any sort of post-season because obviously. Because
             of the new way I want to handle game data (getting it more regularly, and having it be
-            more accurate in general) and due to semi-popular demand, I'll also be including events
-            like concerts at Wrigley field in the site's daily notice, though all updates will end
-            every year when the season ends, and will start up again in the spring of the next year.
+            more accurate in general), we now have double-header support as well. Eventually I'll
+            also be including events like concerts at Wrigley field in the site's daily notice,
+            though all updates will end every year when the season ends, and will start up again in
+            the spring of the next year.
           </p>
           <p>
             This site is very occasionally maintained by a native Chicagoan, who is a web developer
             / caffeine aficianado by day, and a frequent cyclist / electronic music enthusiast by
-            night. It was rebuilt in React in 2016 and leverages isomorphic/universal JS to run the
-            script on the Node server at midnight so the tweets and whatnot go out in a timely
-            fashion and the SEO is still, you know, working without any dings from Google.
+            night. It was rebuilt in React in 2016 and leverages some isomorphic/universal JS
+            as well as NPM-Twitter and Heroku scheduler so the tweets and whatnot go out in a
+            timely fashion. This is very much still a work in progress, thanks for understanding.
           </p>
           <p>
             I'm actually actually very baseball-neutral, though my father is a Sox fan, so I
-            guess I'd default to that if I was into sports. I did live for years within half a
+            guess I'd default to that if I was into sports. I lived for years within half a
             mile of Wrigley Field, and love the neighorhood. There are many places to go and things
             to do and people to see in the general Lakeview area and I would suggest doing so.
           </p>
