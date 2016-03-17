@@ -28,5 +28,5 @@ build/Release
 node_modules
 
 # Build stuff
-public
-public/*
+public/js
+public/css

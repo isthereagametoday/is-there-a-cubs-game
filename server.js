@@ -6,6 +6,7 @@ var path = require('path');
 
 // web app middleware
 var app = express();
+
 // console logger for server
 app.use(morgan('short'));
 
@@ -13,6 +14,7 @@ app.use(morgan('short'));
 app.use(bodyParser.urlencoded({
 	extended : true
 }));
+
 app.use(bodyParser.json());
 
 // bootstrap public/index.html
