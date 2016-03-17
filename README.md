@@ -3,12 +3,12 @@
 A simple, tiny single-service website.
 
 Todo list:
-- This is launched. So disabled the ability to push straight to master. After I add these readme edits.
-  - Set up heroku scheduler for tweets with the twitter bin script from npm-twitter or just node twitter.js. 
+- This is launched. So disable the ability to push straight to master. After I add these readme edits.
+- Set up heroku scheduler for tweets with the twitter bin script from npm-twitter or just node twitter.js. 
   Don't care, just get 'er done.
-  - Add support for eventType, since I said I would push that til after launch and I launched.
-  - Tests or test. Well, three tests for yes no and well? Just test the damn thing.
-    - Started by installing Jasmine and Karma today (2/21).
+- Add support for eventType, since I said I would push that til after launch and I launched.
+- Tests or test. Well, three tests for yes no and well? Just test the damn thing.
+  - Started by installing Jasmine and Karma today (2/21).
 
 Stuff I am waiting on: 
 
