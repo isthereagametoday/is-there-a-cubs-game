@@ -30,3 +30,6 @@ node_modules
 # Build stuff
 public/js
 public/css
+
+# Env file
+.env

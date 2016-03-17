@@ -3,6 +3,8 @@ var morgan = require('morgan');
 var serveStatic = require('serve-static');
 var bodyParser = require('body-parser');
 var path = require('path');
+var Twitter = require('twitter');
+require('dotenv').config();
 
 // web app middleware
 var app = express();
@@ -25,13 +27,8 @@ var router = express.Router();
 
 // some doc data to serve via REST api
 var events = [{
-    eventDate: "2016-03-10",
+    eventDate: "2016-03-16",
     eventTime: "07:05 PM",
-    eventType: "game",
-  },
-  {
-    eventDate: "2016-03-10",
-    eventTime: "07:45 PM",
     eventType: "game",
   },
   {
@@ -440,12 +437,14 @@ var events = [{
     eventType: "game",
   }];
 
-// GET ./api/docs
+// GET ./api/events
 router.get('/events', function(req, res) {
 	res.send(events);
 })
 
-// GET ./api/doc/:id
+var tweetStatus = [];
+
+// GET ./api/events/:date
 router.get('/events/:date', function(req, res) {
   var date = req.params.date;
   var check = events.filter(function(event) { 
@@ -454,8 +453,37 @@ router.get('/events/:date', function(req, res) {
   console.log('check: ', check);
   console.log('date: ', date);
   res.send(check);
+  tweetStatus = check;
+});
+
+console.log(tweetStatus);
+
+if (tweetStatus.length === 1) {
+  gameStatus = 'Yes at' + tweetStatus.eventTime;
+} else if (tweetStatus.length > 1) {
+  gameStatus = 'Yes. There are actually several games today.'
+} else {
+  gameStatus = 'No.'
+}
+
+var params = {status: gameStatus};  
+
+var client = new Twitter({
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+});
+
+router.get('/tweet', function(req, res) { 
+  client.post('statuses/update', params, function(error, tweet, response){ 
+    if (!error) { 
+      res.send(tweet); 
+    }  else { 
+      res.send(error); 
+    }     
+  });  
 })
-    
 
 app.use('/api', router);
 
