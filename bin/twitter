@@ -9,6 +9,8 @@ function tweetStatus(status) {
   console.log(status);
   console.log('Hello');
 
+  var gameStatus;
+  
   if (status.length === 1) {
     gameStatus = 'Yes at' + status.eventTime;
   } else if (status.length > 1) {
