@@ -3,7 +3,7 @@
 A simple, tiny single-service website.
 
 Todo list:
-- This is launched. So disable the ability to push straight to master. After I add these readme edits.
+- This is launched. So uset your stuff for master, and stop pushing straight to it, please thank you. To-do is staging.
 - Set up heroku scheduler for tweets with the twitter bin script from npm-twitter or just node twitter.js. 
   Don't care, just get 'er done.
 - Add support for eventType, since I said I would push that til after launch and I launched.
