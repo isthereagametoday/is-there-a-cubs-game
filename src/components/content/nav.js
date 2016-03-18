@@ -6,18 +6,18 @@ class Nav extends React.Component {
     return (
           <nav className="row middle-xsmall around-xsmall">
             {this.props.link ?
-              <Link to="/about" className="column-medium-4 column-xsmall">
+              <Link to="/about" className="column-medium-4 column-xsmall-12">
                 <h5> What / Why? </h5>
               </Link>
               :
-              <IndexLink to="/" className="column-medium-4 column-xsmall">
+              <IndexLink to="/" className="column-medium-4 column-xsmall-12">
                 <h5> Is there? </h5>
               </IndexLink>
             }
-            <a href="http://twitter.com/IsThereCubsGame" className="column-medium-4 column-xsmall">
+            <a href="http://twitter.com/IsThereCubsGame" className="column-medium-4 column-xsmall-12">
               <h5>@IsThereCubsGame</h5>
             </a>
-            <a href="http://feeds.feedburner.com/isthereacubsgametoday" className="column-medium-4 column-xsmall">
+            <a href="http://feeds.feedburner.com/isthereacubsgametoday" className="column-medium-4 column-xsmall-12">
               <h5>RSS Feed</h5>
             </a>
           </nav>

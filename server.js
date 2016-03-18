@@ -448,8 +448,6 @@ router.get('/events/:date', function(req, res) {
   var check = events.filter(function(event) { 
     return event.eventDate === date
   });
-  console.log('check: ', check);
-  console.log('date: ', date);
   res.send(check);
   status = check;
 });
