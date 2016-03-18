@@ -31,12 +31,8 @@ class Home extends React.Component {
     const now = dateUtils.getToday().substr(0, 10);
     const gameStatus = apiUtils.getDate(now);
 
-    console.log('now:', now);
-
     gameStatus.then(date => {
       const status = date.data;
-
-      console.log('status:', status);
 
       // empty status falls through
       if (status.length === 1) {
@@ -47,7 +43,6 @@ class Home extends React.Component {
       } else if (status.length > 1) {
         const eventTimes = status.map(d => d.eventTime);
 
-        console.log('times:', eventTimes);
         this.setState({
           result: true,
           number: status.length,

@@ -5,7 +5,7 @@ class Seo extends React.Component {
     return (
         <div>
           <div className="row center-xsmall">
-            <p className="column-xsmall">
+            <p className="column-xsmall-10">
               Hey, neighbors. Live in the Lakeview/Wrigleyville area?
               You can make some extra money selling your parking spot to Cubs fans
               on game days. They'll handle all the parking operations for you!
@@ -14,7 +14,7 @@ class Seo extends React.Component {
             </p>
           </div>
           <div className="row center-xsmall">
-            <p className="column-xsmall">
+            <p className="column-xsmall-10">
               Are you looking for
               <a href="http://cubparking.com/?utm_source=IsThereACubsGameToday&utm_medium=SEO&utm_campaign=IndexLink" target="_blank"> cubs parking</a>
               ? It's a great alternative to official
@@ -22,7 +22,7 @@ class Seo extends React.Component {
             </p>
           </div>
           <div className="row center-xsmall">
-            <p className="column-xsmall">
+            <p className="column-xsmall-10">
               <a href="http://cubparking.com/?utm_source=IsThereACubsGameToday&utm_medium=SEO&utm_campaign=IndexLink" target="_blank"> CubParking.com </a>
             </p>
           </div>
