@@ -4,8 +4,8 @@ A simple, tiny single-service website.
 
 Todo list:
 - This is launched. So uset your stuff for master, and stop pushing straight to it, please thank you. To-do is staging.
-- Set up heroku scheduler for tweets with the twitter bin script from npm-twitter or just node twitter.js. 
-  Don't care, just get 'er done.
+- Add Minifier 
+- Add support for multiple game in twitter script
 - Add support for eventType, since I said I would push that til after launch and I launched.
 - Tests or test. Well, three tests for yes no and well? Just test the damn thing.
   - Started by installing Jasmine and Karma today (2/21).
@@ -20,9 +20,9 @@ Stuff I am waiting on:
   - After I get webpack, add an autoprefixer. This is too simple to break because I'm in love with flexbox.
   - Logic for when it's turned off for the season.
 
-
 Stuff that is flat-out done:
-  
+  - _Set up heroku scheduler for tweets with the twitter bin script from npm-twitter or just node twitter.js. Don't care, just get 'er done._
+    - **Done, waiting for tomorrow to see if it will set off**
   - _Set up Heroku._
     - **Done, with the to-do branch for staging and master for production in the Pipeline. Also got the DNS pointed correctly, so don't eff up master anymore, please Mica. Love, Mica** 
   - _Should I move the smaller components into a directory, leaving the large views in another (About/Home vs header/footer/nav/seo)? Probably. Make sure to resolve the paths in webpack so I'm not having to put relative path everywhere._
