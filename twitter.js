@@ -1,25 +1,17 @@
 #! /app/.heroku/node/bin/node
 
 var Twitter = require('twitter');
-var status = require('./server');
+var axios = require('axios');
+var moment = require('moment');
+var tz = require('moment-timezone');
 require('dotenv').config();
 
-function tweetStatus() {
-  console.log(status);
-  console.log('Hello');
-
-  var gameStatus;
-  if (status.length === 1) {
-    gameStatus = 'Yes at' + status.eventTime;
-  } else if (status.length > 1) {
-    gameStatus = 'Yes. There are actually several games today.';
-  } else {
-    gameStatus = 'No.';
-  }
+function tweetStatus(status) {
 
   var params = {
-    status: gameStatus,
+    status: status,
   };
+
   var client = new Twitter({
     consumer_key: process.env.TWITTER_CONSUMER_KEY,
     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -27,9 +19,37 @@ function tweetStatus() {
     access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
   });
 
-  console.log(params);
+
+  client.post('statuses/update', params,  function(error, tweet, response){
+    if(error) throw error;
+  });
 }
 
-tweetStatus();
+function getToday() {
+  return moment().tz('America/Chicago').format().substr(0, 10);
+}
 
-process.exit();
+var now = getToday();
+
+function getGame(){
+  return axios.get(process.env.CUBS_GAME_API + now);
+}
+
+getGame().then(function(res){
+  var game = res.data;
+
+  var today = moment().tz('America/Chicago').format('dddd, MMMM Do');
+  var tweetStart = 'Is There a Cubs Game Today? Today is ' + today;
+
+  var status;
+  if (game.length === 1) {
+    status = tweetStart + '. YES AT ' + game[0].eventTime;
+  } else if (game.length > 1) {
+    status = tweetStart + '. YES. There are actually several games today. Check site for details.';
+  } else {
+    status = tweetStart + '. NO.';
+  }
+
+  tweetStatus(status);
+  console.log('last tweet:', now, status, game);
+});
