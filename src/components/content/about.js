@@ -11,7 +11,7 @@ class About extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="column-xsmall">
+        <div className="column-xsmall-11">
           <Header />
           <h3>Hello there.</h3>
           <p>
