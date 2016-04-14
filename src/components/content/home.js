@@ -11,6 +11,7 @@ import Footer from './footer';
 
 import apiUtils from '../../utils/api-utils';
 import dateUtils from '../../utils/date-utils';
+import multipleUtils from '../../utils/multiple-utils';
 
 class Home extends React.Component {
   constructor() {
@@ -55,14 +56,6 @@ class Home extends React.Component {
     });
   }
 
-  multipleTimes(times) {
-    let result = '';
-    times.forEach(t => {
-      result = (result === '') ? t : `${result} and ${t}`;
-    });
-    return result;
-  }
-
   render() {
     let status;
     const result = this.state.result;
@@ -71,7 +64,7 @@ class Home extends React.Component {
     if (result) {
       status = (number) ?
         <h2 className="c-pos">
-          YES. There are actually {this.state.number} games today, at {this.multipleTimes(times)}.
+          YES. There are actually {this.state.number} games today, at {multipleTimes(times)}.
         </h2>
         : <h2 className="c-pos">YES at {this.state.time}.</h2>;
     } else {
