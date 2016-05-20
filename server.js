@@ -457,10 +457,9 @@ app.get('*', function(req, res) {
 })
 
 var url = process.env.IP || '0.0.0.0'
-var port = 3000;
-app.set('port', process.env.PORT || port)
+var port = process.env.PORT || '3000';
 
-var server = app.listen(app.get('port'), url, function() {
+var server = app.listen(port, url, function() {
   console.log('Static server listening url %s on port %s', url, server
       .address().port);
 })
