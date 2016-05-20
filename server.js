@@ -1,8 +1,7 @@
 var express = require('express');
-var browserSync = require('browser-sync');
 var morgan = require('morgan');
-var bodyParser = require('body-parser');
 var serveStatic = require('serve-static');
+var bodyParser = require('body-parser');
 var path = require('path');
 
 // web app middleware
@@ -13,8 +12,9 @@ app.use(morgan('short'));
 
 // for serving json api (stub included below)
 app.use(bodyParser.urlencoded({
-    extended : true
+  extended : true
 }));
+
 app.use(bodyParser.json());
 
 // bootstrap public/index.html
@@ -433,7 +433,7 @@ var events = [
 
 // GET ./api/events
 router.get('/events', function(req, res) {
-	res.send(events);
+  res.send(events);
 })
 
 var status = [];
@@ -441,7 +441,7 @@ var status = [];
 // GET ./api/events/:date
 router.get('/events/:date', function(req, res) {
   var date = req.params.date;
-  var check = events.filter(function(event) {
+  var check = events.filter(function(event) { 
     return event.eventDate === date
   });
   res.send(check);
@@ -457,9 +457,10 @@ app.get('*', function(req, res) {
 })
 
 var url = process.env.IP || '0.0.0.0'
-var port = process.env.PORT || '3000';
+var port = 3000;
+app.set('port', process.env.PORT || port)
 
-var server = app.listen(port, url, function() {
+var server = app.listen(app.get('port'), url, function() {
   console.log('Static server listening url %s on port %s', url, server
       .address().port);
 })
