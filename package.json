@@ -53,12 +53,14 @@
     "moment-timezone": "^0.5.0",
     "morgan": "^1.6.1",
     "node-sass": "^3.4.2",
+    "npm-run-all": "^2.1.1",
     "path": "^0.12.7",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-router": "^1.0.3",
     "serve-static": "^1.10.2",
     "twitter": "^1.2.5",
+    "uglifyjs": "^2.4.10",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
