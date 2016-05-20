@@ -457,7 +457,7 @@ app.get('*', function(req, res) {
 });
 
 var url = process.env.IP || '0.0.0.0';
-var port = 3000;
+var port = process.env.PORT || 3000;
 app.set('port', process.env.PORT || port);
 
 function listening () {
