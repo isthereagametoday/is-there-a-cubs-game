@@ -9,17 +9,21 @@
   "main": "server.js",
   "scripts": {
     "test": "karma start",
-    "start": "node server.js",
+    "start": "NODE_ENV=production node server.js",
+    "dev": "NODE_ENV=development node server.js",
     "lint-js": "./node_modules/eslint/bin/eslint.js . --ext .jsx,.js",
     "lint-css": "stylelint 'styles/cubsgame.scss'",
     "lint": "npm run lint-css && npm run lint-js",
-    "build-js": "mkdir -p public/js && ./node_modules/.bin/browserify src/main.js -t babelify -o public/js/bundle.js",
-    "build-css": "mkdir -p public/css && ./node_modules/.bin/node-sass --output-style compressed styles/cubsgame.scss public/css/main.css",
-    "build": "npm run build-js && npm run build-css",
+    "build-js": "./node_modules/.bin/browserify src/main.js -t babelify | ./node_modules/.bin/uglifyjs > public/js/bundle.min.js",
+    "build-css": "./node_modules/.bin/node-sass --output-style compressed styles/cubsgame.scss public/css/main.css",
+    "build": "./node_modules/.bin/run-s -c clean build-css build-js",
     "postinstall": "npm run build",
     "watch-js": "watchify src/main.js -t babelify --outfile public/js/bundle.js -v",
-    "watch-css": "nodemon -e scss -x 'npm run build-css'",
-    "watch": "parallelshell 'npm run watch-css' 'npm run watch-js' 'npm start'"
+    "watch-css": "node-sass -w --output-style compressed styles/cubsgame.scss public/css/main.css",
+    "watch": "./node_modules/.bin/run-p watch-css watch-js",
+    "clean": "./node_modules/.bin/run-s -c --silent clean-js clean-css",
+    "clean-js": "rm public/js/bundle.min.js",
+    "clean-css": "rm public/css/main.css"
   },
   "repository": {
     "type": "git",
@@ -59,6 +63,8 @@
   },
   "devDependencies": {
     "babel-eslint": "^5.0.0",
+    "browser-sync": "^2.12.8",
+    "dotenv": "^2.0.0",
     "eslint": "^2.2.0",
     "eslint-config-airbnb": "*",
     "eslint-plugin-react": "^4.0.0",
@@ -68,10 +74,10 @@
     "karma-jasmine": "^0.3.7",
     "karma-phantomjs-launcher": "^1.0.0",
     "nodemon": "^1.9.0",
-    "parallelshell": "^2.0.0",
     "phantomjs-prebuilt": "^2.1.4",
     "stylelint": "^4.4.0",
-    "stylelint-config-standard": "^3.0.0"
+    "stylelint-config-standard": "^3.0.0",
+    "uglify-js": "^2.6.2"
   },
   "babel": {
     "presets": [
