@@ -1,7 +1,8 @@
 var express = require('express');
+var browserSync = require('browser-sync');
 var morgan = require('morgan');
-var serveStatic = require('serve-static');
 var bodyParser = require('body-parser');
+var serveStatic = require('serve-static');
 var path = require('path');
 
 // web app middleware
@@ -12,9 +13,8 @@ app.use(morgan('short'));
 
 // for serving json api (stub included below)
 app.use(bodyParser.urlencoded({
-	extended : true
+    extended : true
 }));
-
 app.use(bodyParser.json());
 
 // bootstrap public/index.html
@@ -441,7 +441,7 @@ var status = [];
 // GET ./api/events/:date
 router.get('/events/:date', function(req, res) {
   var date = req.params.date;
-  var check = events.filter(function(event) { 
+  var check = events.filter(function(event) {
     return event.eventDate === date
   });
   res.send(check);
@@ -453,14 +453,29 @@ app.use('/api', router);
 // handle every other route with index.html, which will contain
 // a script tag to your application's JavaScript file(s).
 app.get('*', function(req, res) {
-	res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
-})
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
 
-var url = process.env.IP || '0.0.0.0'
+var url = process.env.IP || '0.0.0.0';
 var port = 3000;
-app.set('port', process.env.PORT || port)
+app.set('port', process.env.PORT || port);
 
-var server = app.listen(app.get('port'), url, function() {
-	console.log('Static server listening url %s on port %s', url, server
-			.address().port);
-})
+function listening () {
+    browserSync({
+        proxy: 'localhost:' + port,
+        files: ['public/**/*.{js,css}']
+    });
+    console.log('BrowserSync server listening url %s on port %s in %s mode', url, server
+        .address().port, process.env.NODE_ENV);
+}
+
+if (process.env.NODE_ENV === 'development') {
+    var server = app.listen(app.get('port'), listening);
+}
+
+if (process.env.NODE_ENV === 'production') {
+    var server = app.listen(app.get('port'), url, function() {
+        console.log('Static server listening url %s on port %s in %s mode', url, server
+            .address().port, process.env.NODE_ENV);
+    });
+}
