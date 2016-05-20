@@ -7,6 +7,7 @@ var path = require('path');
 
 // web app middleware
 var app = express();
+
 // console logger for server
 app.use(morgan('short'));
 
