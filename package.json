@@ -75,12 +75,8 @@
     "expect-jsx": "^2.4.0",
     "mocha": "^2.4.5",
     "nodemon": "^1.9.0",
-<<<<<<< HEAD
-    "parallelshell": "^2.0.0",
     "react-addons-test-utils": "^0.14.8",
-=======
     "phantomjs-prebuilt": "^2.1.4",
->>>>>>> master
     "stylelint": "^4.4.0",
     "stylelint-config-standard": "^3.0.0",
     "uglify-js": "^2.6.2"
