@@ -29,8 +29,7 @@ class Home extends React.Component {
   }
 
   init() {
-    const now = dateUtils.getToday();
-    console.log(now);
+    const now = dateUtils.getDate();
     const gameStatus = apiUtils.getDate(now);
 
     gameStatus.then(date => {
