@@ -441,7 +441,7 @@ var status = [];
 // GET ./api/events/:date
 router.get('/events/:date', function(req, res) {
   var date = req.params.date;
-  var check = events.filter(function(event) { 
+  var check = events.filter(function(event) {
     return event.eventDate === date
   });
   res.send(check);
