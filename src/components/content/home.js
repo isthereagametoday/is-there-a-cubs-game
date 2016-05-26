@@ -11,7 +11,7 @@ import Footer from './footer';
 
 import apiUtils from '../../utils/api-utils';
 import dateUtils from '../../utils/date-utils';
-import multipleUtils from '../../utils/multiple-utils';
+import timesUtils from '../../utils/times-utils';
 
 class Home extends React.Component {
   constructor() {
@@ -34,22 +34,13 @@ class Home extends React.Component {
 
     gameStatus.then(date => {
       const status = date.data;
+      const gameTimes = timesUtils.getTimes(status);
 
-      // empty status falls through
-      if (status.length === 1) {
-        this.setState({
-          result: true,
-          time: status[0].eventTime,
-        });
-      } else if (status.length > 1) {
-        const eventTimes = status.map(d => d.eventTime);
-
-        this.setState({
-          result: true,
-          number: status.length,
-          times: eventTimes,
-        });
-      }
+      this.setState({
+        result: status ? true : false,
+        number: status ? status.length : 0,
+        times: gameTimes,
+      })
     },
     (error) => {
       console.log('error:', error);
@@ -62,11 +53,11 @@ class Home extends React.Component {
     const number = this.state.number;
     const times = this.state.times;
     if (result) {
-      status = (number) ?
+      status = (number > 1) ?
         <h2 className="c-pos">
-          YES. There are actually {this.state.number} games today, at {multipleTimes(times)}.
+          YES. There are actually {this.state.number} games today, at {this.state.times}.
         </h2>
-        : <h2 className="c-pos">YES at {this.state.time}.</h2>;
+        : <h2 className="c-pos">YES at {this.state.times}.</h2>;
     } else {
       status = <h2 className="c-neg">NO.</h2>;
     }

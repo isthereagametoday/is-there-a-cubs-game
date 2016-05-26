@@ -1,10 +1,8 @@
 import chai, {expect, assert, should} from 'chai';
-import jsxChai from 'jsx-chai';
 import React from 'react';
 import getToday from '../src/utils/date-utils';
 import getDate from '../src/utils/api-utils';
-
-chai.use(jsxChai);
+import getTimes from '../src/utils/times-utils';
 
 describe('the getting of today\'s date', function() {
 
@@ -41,6 +39,18 @@ describe('the getting of a game\'s status', function() {
         expect(value.data[0]).to.be.undefined;
   	})
  	})
+
 })
 
+describe('the getting of a game\'s times', function() {
+
+  it('spits out one time', function() {
+  	return getDate.getDate('2016-09-16', 'http://0.0.0.0:3000')
+  		.then(function(value) {
+  			console.log(getTimes.getTimes(value));
+        expect(value.data[0].eventType).to.equal('game');
+  	})
+ 	})
+
+})
 
