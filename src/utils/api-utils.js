@@ -4,8 +4,9 @@ const apiUtils = {
   getDates() {
     return axios.get('/api/events');
   },
-  getDate(date) {
-    return axios.get(`/api/events/${date}`);
+  getDate(date, instance) {
+  	const requ = instance ? instance + '/api/events/' + date : '/api/events/' + date;
+    return axios.get(requ);
   },
 };
 

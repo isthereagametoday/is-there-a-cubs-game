@@ -1,14 +1,14 @@
-import chai, {expect, assert} from 'chai';
+import chai, {expect, assert, should} from 'chai';
 import jsxChai from 'jsx-chai';
 import React from 'react';
 import getToday from '../src/utils/date-utils';
 import getDate from '../src/utils/api-utils';
 
-chai.use(jsxChai)
+chai.use(jsxChai);
 
-describe('the getToday function',() => {
+describe('the getting of today\'s date', function() {
 
-  it('spits out today\'s date in a format given', () => {
+  it('spits out today\'s date in a format given', function() {
 
   	const date = new Date();
   	const day = date.getUTCDay();
@@ -19,20 +19,28 @@ describe('the getToday function',() => {
 
   })
 
-   it('spits out today\'s date in a length given', () => {
+   it('spits out today\'s date in a length given', function() {
   	assert.lengthOf(getToday.getToday('', 5), 5);
   })
 
 })
 
 
-describe('the getDate function',() => {
+describe('the getting of a game\'s status', function() {
 
-  it('spits out today\'s game status', () => {
-  	const gameStatus = getDate.getDate('12-1-2002');
-  	console.log(gameStatus.then(date => {return date.data}));
-  	expect(gameStatus.then(date => {return date.data})).to.not.equal('red');
+  it('spits out today\'s game status as yes', function() {
+  	return getDate.getDate('2016-09-16', 'http://0.0.0.0:3000')
+  		.then(function(value) {
+        expect(value.data[0].eventType).to.equal('game');
+  	})
+ 	})
 
-  })
+ 	 it('spits out today\'s game status as no', function() {
+  	return getDate.getDate('2001-09-16', 'http://0.0.0.0:3000')
+  		.then(function(value) {
+        expect(value.data[0]).to.be.undefined;
+  	})
+ 	})
+})
 
- })
+
