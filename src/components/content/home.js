@@ -7,6 +7,9 @@ import Seo from './seo';
 import Header from './header';
 import Footer from './footer';
 
+import Yes from './yes';
+import No from './no';
+
 // utils
 
 import apiUtils from '../../utils/api-utils';
@@ -33,12 +36,12 @@ class Home extends React.Component {
     const gameStatus = apiUtils.getDate(now);
 
     gameStatus.then(date => {
-      const status = date.data;
+      const status = (date.data !== []) ? date.data : false;
+      console.log('status', status);
       const gameTimes = timesUtils.getTimes(status);
 
       this.setState({
-        result: status ? true : false,
-        number: status ? status.length : 0,
+        result: status.length ? true : false,
         times: gameTimes,
       })
     },
@@ -48,19 +51,11 @@ class Home extends React.Component {
   }
 
   render() {
-    let status;
     const result = this.state.result;
-    const number = this.state.number;
     const times = this.state.times;
-    if (result) {
-      status = (number > 1) ?
-        <h2 className="c-pos">
-          YES. There are actually {this.state.number} games today, at {this.state.times}.
-        </h2>
-        : <h2 className="c-pos">YES at {this.state.times}.</h2>;
-    } else {
-      status = <h2 className="c-neg">NO.</h2>;
-    }
+    console.log('result', result);
+
+    const status = result ? <Yes times={times} /> : <No />;
 
     return (
       <div className="row middle-xsmall center-xsmall">

@@ -1,0 +1,1 @@
+      status = <h2 className="c-neg">NO.</h2>;
