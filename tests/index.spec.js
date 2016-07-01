@@ -9,6 +9,11 @@ import getTimes from '../src/utils/times-utils';
 
 import Home from '../src/components/content/home';
 
+import jsdom from 'jsdom'
+const doc = jsdom.jsdom('<!doctype html><html><body></body></html>')
+global.document = doc
+global.window = doc.defaultView
+
 describe('the getting of today\'s date', function() {
 
   it('spits out today\'s date in a format given', function() {

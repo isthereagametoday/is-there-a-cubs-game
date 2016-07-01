@@ -21,9 +21,7 @@ class Home extends React.Component {
     super();
     this.state = {
       result: false,
-      number: null,
-      time: null,
-      times: null,
+      times: null
     };
   }
 
@@ -36,12 +34,11 @@ class Home extends React.Component {
     const gameStatus = apiUtils.getDate(now);
 
     gameStatus.then(date => {
-      const status = (date.data !== []) ? date.data : false;
-      console.log('status', status);
-      const gameTimes = timesUtils.getTimes(status);
+      const check = date.data.length ? true : false;
+      const gameTimes = check ? timesUtils.getTimes(date) : {};
 
       this.setState({
-        result: status.length ? true : false,
+        result: check,
         times: gameTimes,
       })
     },
@@ -53,7 +50,6 @@ class Home extends React.Component {
   render() {
     const result = this.state.result;
     const times = this.state.times;
-    console.log('result', result);
 
     const status = result ? <Yes times={times} /> : <No />;
 
