@@ -1,8 +1,10 @@
 var express = require('express');
+var browserSync = require('browser-sync');
 var morgan = require('morgan');
 var serveStatic = require('serve-static');
 var bodyParser = require('body-parser');
 var path = require('path');
+require('dotenv').load();
 
 // web app middleware
 var app = express();
@@ -182,7 +184,7 @@ var events = [
   },
   {
     eventDate: "2016-06-05",
-    eventTime: "",
+    eventTime: "1:20 PM",
     eventType: "game"
   },
   {
@@ -197,7 +199,7 @@ var events = [
   },
   {
     eventDate: "2016-06-19",
-    eventTime: "",
+    eventTime: "7:08 PM",
     eventType: "game"
   },
   {
@@ -231,6 +233,11 @@ var events = [
     eventType: "game",
   },
   {
+    eventDate: "2016-07-07",
+    eventTime: "7:05 PM",
+    eventType: "game",
+  },
+  {
     eventDate: "2016-07-15",
     eventTime: "1:20 PM",
     eventType: "game",
@@ -247,7 +254,7 @@ var events = [
   },
   {
     eventDate: "2016-07-18",
-    eventTime: "7:05 PM",
+    eventTime: "6:05 PM",
     eventType: "game",
   },
   {
@@ -282,7 +289,7 @@ var events = [
   },
   {
     eventDate: "2016-07-31",
-    eventTime: "1:20 PM",
+    eventTime: "",
     eventType: "game",
   },
   {
@@ -332,7 +339,7 @@ var events = [
   },
   {
     eventDate: "2016-08-16",
-    eventTime: "7:05 PM",
+    eventTime: "12:20 PM,7:05 PM",
     eventType: "game",
   },
   {
@@ -441,7 +448,7 @@ var status = [];
 // GET ./api/events/:date
 router.get('/events/:date', function(req, res) {
   var date = req.params.date;
-  var check = events.filter(function(event) { 
+  var check = events.filter(function(event) {
     return event.eventDate === date
   });
   res.send(check);
@@ -456,11 +463,26 @@ app.get('*', function(req, res) {
   res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
 
-var url = process.env.IP || '0.0.0.0'
+var url = process.env.IP || '0.0.0.0';
 var port = 3000;
-app.set('port', process.env.PORT || port)
+app.set('port', process.env.PORT || port);
 
-var server = app.listen(app.get('port'), url, function() {
-  console.log('Static server listening url %s on port %s', url, server
-      .address().port);
-})
+function listening () {
+    browserSync({
+        proxy: 'localhost:' + port,
+        files: ['public/**/*.{js,css}']
+    });
+    console.log('BrowserSync server listening url %s on port %s in %s mode', url, server
+        .address().port, process.env.NODE_ENV);
+}
+
+if (process.env.NODE_ENV === 'dev') {
+    var server = app.listen(app.get('port'), listening);
+}
+
+if (process.env.NODE_ENV === 'prod') {
+    var server = app.listen(app.get('port'), url, function() {
+        console.log('Static server listening url %s on port %s in %s mode', url, server
+            .address().port, process.env.NODE_ENV);
+    });
+}

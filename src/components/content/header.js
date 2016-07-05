@@ -5,6 +5,7 @@ import dateUtils from '../../utils/date-utils';
 class Header extends React.Component {
   render() {
     const now = dateUtils.getToday('dddd, MMMM Do, YYYY');
+
     return (
         <header>
             <h2>Today is {now}</h2>
