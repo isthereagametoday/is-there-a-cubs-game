@@ -36,7 +36,6 @@ class Home extends React.Component {
     gameStatus.then(date => {
       const check = date.data.length ? true : false;
       const gameTimes = check ? timesUtils.getTimes(date) : {};
-
       this.setState({
         result: check,
         times: gameTimes,
@@ -50,7 +49,6 @@ class Home extends React.Component {
   render() {
     const result = this.state.result;
     const times = this.state.times;
-
     const status = result ? <Yes times={times} /> : <No />;
 
     return (

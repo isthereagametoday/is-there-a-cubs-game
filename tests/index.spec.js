@@ -8,6 +8,8 @@ import getDate from '../src/utils/api-utils';
 import getTimes from '../src/utils/times-utils';
 
 import Home from '../src/components/content/home';
+import Yes from '../src/components/content/yes';
+import No from '../src/components/content/no';
 
 import jsdom from 'jsdom'
 const doc = jsdom.jsdom('<!doctype html><html><body></body></html>')
@@ -75,17 +77,18 @@ describe('the getting of a game\'s times', function() {
 describe('the getting of a game\'s messaging', function() {
 
   it('renders the yes message', function() {
-  	const component = mount(<Home />);
-  	expect(component.find())
+    const component = mount(<Yes times={'9:99 PM'} />);
+    expect(component.text()).to.equal('YES at 9:99 PM.');
  	})
 
  	it('renders the no message', function() {
-
+    const component = mount(<No />);
+    expect(component.text()).to.equal('NO.');
  	})
 
  	it('renders the multiple message', function() {
-
+    const component = mount(<Yes times={'9:99 PM and 7:77 PM'} />);
+    expect(component.text()).to.equal('YES. There are actually 2 games today, at 9:99 PM and 7:77 PM.');
  	})
-
 })
 
