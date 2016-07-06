@@ -2,8 +2,8 @@
   "name": "IsThisACubsGameToday.com",
   "version": "1.0.0",
   "engines": {
-    "node": "5.1.x",
-    "npm": "3.3.x"
+    "node": "6.2.2",
+    "npm": "3.9.5"
   },
   "description": "Using React-Starter: A minimalist latest version react, react-router, redux and auth plus node static and api server skeleton, an exploration for personal use",
   "main": "server.js",
