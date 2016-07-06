@@ -1,14 +1,11 @@
-var express = require('express');
-var browserSync = require('browser-sync');
+var express = require('express')
 var morgan = require('morgan');
-var serveStatic = require('serve-static');
+var serveStatic = require('serve-static')
 var bodyParser = require('body-parser');
 var path = require('path');
-require('dotenv').load();
 
 // web app middleware
 var app = express();
-
 // console logger for server
 app.use(morgan('short'));
 
@@ -16,11 +13,10 @@ app.use(morgan('short'));
 app.use(bodyParser.urlencoded({
   extended : true
 }));
-
 app.use(bodyParser.json());
 
 // bootstrap public/index.html
-app.use(serveStatic(__dirname + '/public'));
+app.use(serveStatic(__dirname + '/public'))
 
 // server-side router
 var router = express.Router();
@@ -463,26 +459,11 @@ app.get('*', function(req, res) {
   res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
 
-var url = process.env.IP || '0.0.0.0';
+var url = process.env.IP || '0.0.0.0'
 var port = 3000;
-app.set('port', process.env.PORT || port);
+app.set('port', process.env.PORT || port)
 
-function listening () {
-    browserSync({
-        proxy: 'localhost:' + port,
-        files: ['public/**/*.{js,css}']
-    });
-    console.log('BrowserSync server listening url %s on port %s in %s mode', url, server
-        .address().port, process.env.NODE_ENV);
-}
-
-if (process.env.NODE_ENV === 'dev') {
-    var server = app.listen(app.get('port'), listening);
-}
-
-if (process.env.NODE_ENV === 'prod') {
-    var server = app.listen(app.get('port'), url, function() {
-        console.log('Static server listening url %s on port %s in %s mode', url, server
-            .address().port, process.env.NODE_ENV);
-    });
-}
+var server = app.listen(app.get('port'), url, function() {
+  console.log('Static server listening url %s on port %s', url, server
+      .address().port);
+})
