@@ -30,6 +30,7 @@ node_modules
 # Build stuff
 public/js
 public/css
+index.js
 
 # Env file
 .env
