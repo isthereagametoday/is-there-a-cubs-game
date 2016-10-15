@@ -439,7 +439,22 @@ var events = [
     eventType: "game",
   },
   {
-    eventDate: "2016-10-13",
+    eventDate: "2016-10-15",
+    eventTime: "7:00 PM",
+    eventType: "game",
+  },
+  {
+    eventDate: "2016-10-16",
+    eventTime: "7:00 PM",
+    eventType: "game",
+  },
+  {
+    eventDate: "2016-10-22",
+    eventTime: "¯\_(ツ)_/¯",
+    eventType: "game",
+  },
+  {
+    eventDate: "2016-10-23",
     eventTime: "¯\_(ツ)_/¯",
     eventType: "game",
   }];
