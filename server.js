@@ -452,11 +452,6 @@ var events = [
     eventDate: "2016-10-22",
     eventTime: "7:00 PM",
     eventType: "game",
-  },
-  {
-    eventDate: "2016-10-23",
-    eventTime: "7:00 PM",
-    eventType: "game",
   }];
 
 // GET ./api/events
