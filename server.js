@@ -452,6 +452,21 @@ var events = [
     eventDate: "2016-10-22",
     eventTime: "7:00 PM",
     eventType: "game",
+  },
+  {
+    eventDate: "2016-10-28",
+    eventTime: "7:00 PM",
+    eventType: "game",
+  },
+  {
+    eventDate: "2016-10-29",
+    eventTime: "7:00 PM",
+    eventType: "game",
+  },
+  {
+    eventDate: "2016-10-30",
+    eventTime: "7:00 PM",
+    eventType: "game",
   }];
 
 // GET ./api/events
