@@ -34,3 +34,19 @@ index.js
 
 # Env file
 .env
+
+.eslintignore
+.eslintrc.js
+.stylelintrc
+LICENSE
+Procfile
+README.md
+karma.config.js
+package.json
+public/
+server.js
+src/
+styles/
+tests/
+tweet_log.txt
+twitter.js
