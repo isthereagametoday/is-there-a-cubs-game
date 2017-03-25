@@ -20,7 +20,7 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      result: null,
+      result: "loading",
       times: null,
       type: null
     };
@@ -58,7 +58,7 @@ class Home extends React.Component {
     const times = this.state.times;
     const type = this.state.type;
     let status;
-    if (result === null) {
+    if (result === "loading") {
       status = " "
     } else if (!result) {
       status = <No />;
