@@ -20,25 +20,32 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      result: false,
-      times: null
+      result: null,
+      times: null,
+      type: null
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.init();
+  }
+
+  componentWillReceiveProps() {
     this.init();
   }
 
   init() {
     const now = dateUtils.getToday('', 10);
-    const gameStatus = apiUtils.getDate(now);
+    const eventStatus = apiUtils.getDate(now);
 
-    gameStatus.then(date => {
-      const check = date.data.length ? true : false;
-      const gameTimes = check ? timesUtils.getTimes(date) : {};
+    eventStatus.then(date => {
+      const check = (date.status === 200) ? true : false;
+      const eventTimes = check ? timesUtils.getTimes(date) : null;
+      const eventType = check ? date.data.eventType : null;
       this.setState({
         result: check,
-        times: gameTimes,
+        times: eventTimes,
+        type: eventType,
       })
     },
     (error) => {
@@ -49,7 +56,15 @@ class Home extends React.Component {
   render() {
     const result = this.state.result;
     const times = this.state.times;
-    const status = result ? <Yes times={times} /> : <No />;
+    const type = this.state.type;
+    let status;
+    if (result === null) {
+      status = " "
+    } else if (!result) {
+      status = <No />;
+    } else {
+      status = <Yes times={times} type={type} />;
+    }
 
     return (
       <div className="row middle-xsmall center-xsmall">
