@@ -24,12 +24,12 @@ app.get('/:date', function(req, res) {
   console.log(req.params.date);
   var date = req.params.date;
   var cubs = Firebase.database().ref('cubs/' + date);
-  cubs.on('value', function(snapshot) {
+  cubs.once('value', function(snapshot) {
     if (snapshot.exists()) {
       res.send(snapshot.val());
     }
     else {
-      res.status(418).send(null);
+      res.status(204).send(null);
     }
   });
 });

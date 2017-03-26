@@ -4,7 +4,7 @@ class Yes extends React.Component {
 
  render() {
  	const doubleHead = this.props.times.length > 8;
- 	const newType = this.props.type.length > 4;
+ 	const newType = (this.props.type === "concert");
  	let yesAt;
  	if (doubleHead && !newType) {
 	  yesAt = 'YES. There are actually 2 games today, at ' + this.props.times + '.';

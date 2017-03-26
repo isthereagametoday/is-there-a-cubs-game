@@ -20,17 +20,13 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      result: "loading",
+      result: null,
       times: null,
       type: null
     };
   }
 
-  componentDidMount() {
-    this.init();
-  }
-
-  componentWillReceiveProps() {
+  componentWillMount() {
     this.init();
   }
 
@@ -39,9 +35,14 @@ class Home extends React.Component {
     const eventStatus = apiUtils.getDate(now);
 
     eventStatus.then(date => {
-      const check = (date.status === 200) ? true : false;
-      const eventTimes = check ? timesUtils.getTimes(date) : null;
-      const eventType = check ? date.data.eventType : null;
+      let check;
+      if (date.status === 200) {
+        check = "yes";
+      } else if (date.status === 204) {
+        check = "no";
+      }
+      const eventTimes = (check === "yes") ? timesUtils.getTimes(date) : null;
+      const eventType = (check === "yes") ? date.data.eventType : null;
       this.setState({
         result: check,
         times: eventTimes,
@@ -54,23 +55,20 @@ class Home extends React.Component {
   }
 
   render() {
-    const result = this.state.result;
-    const times = this.state.times;
-    const type = this.state.type;
-    let status;
-    if (result === "loading") {
-      status = " "
-    } else if (!result) {
-      status = <No />;
+    console.log(this.state.result);
+    let result = null;
+    if (this.state.result === "yes") {
+      result = <Yes times={this.state.times} type={this.state.type} />;
+    } else if (this.state.result === "no") {
+      result = <No />;
     } else {
-      status = <Yes times={times} type={type} />;
+      result = " ";
     }
-
     return (
       <div className="row middle-xsmall center-xsmall">
         <div className="column-xsmall">
         <Header />
-          {status}
+          {result}
 
           <Nav link />
           <Seo />
