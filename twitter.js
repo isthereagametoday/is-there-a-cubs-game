@@ -2,9 +2,16 @@
 
 var Twitter = require('twitter');
 var axios = require('axios');
+var Firebase = require('firebase');
 var moment = require('moment');
 var tz = require('moment-timezone');
 require('dotenv').config();
+
+var config = {
+
+};
+
+Firebase.initializeApp(config);
 
 function tweetStatus(status) {
 
@@ -30,26 +37,24 @@ function getToday() {
 }
 
 var now = getToday();
+var cubs = Firebase.database().ref('cubs/' + now);
+var getGame = function() {
+  return cubs.once('value');
+};
 
-function getGame(){
-  return axios.get(process.env.CUBS_GAME_API + now);
-}
-
-getGame().then(function(res){
-  var game = res.data;
-
+getGame().then(function(game){
   var today = moment().tz('America/Chicago').format('dddd, MMMM Do');
   var tweetStart = 'Is There a Cubs Game Today? Today is ' + today;
 
   var status;
-  if (game.length === 1) {
-    status = tweetStart + '. YES AT ' + game[0].eventTime;
-  } else if (game.length > 1) {
+  if (!Array.isArray(game.val())) {
+    status = tweetStart + '. YES AT ' + game.val().eventTime;
+  } else if (Array.isArray(game.val())) {
     status = tweetStart + '. YES. There are actually several games today. Check site for details.';
   } else {
     status = tweetStart + '. NO.';
   }
 
-  tweetStatus(status);
-  console.log('last tweet:', now, status, game);
+  // tweetStatus(status);
+  console.log('last tweet:', now, status);
 });

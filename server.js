@@ -3,7 +3,6 @@ var serveStatic = require('serve-static')
 var Firebase = require('firebase');
 var path = require('path');
 
-
 // web app middleware
 var app = express();
 // var router = express.Router();
