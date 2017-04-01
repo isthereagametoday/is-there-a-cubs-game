@@ -8,7 +8,9 @@ var tz = require('moment-timezone');
 require('dotenv').config();
 
 var config = {
-
+  apiKey: process.env.cubsStagingAPIKey,
+  authDomain: process.env.cubsStagingAuthDomain,
+  databaseURL: "https://istherecubsgame-staging.firebaseio.com"
 };
 
 Firebase.initializeApp(config);
@@ -45,16 +47,19 @@ var getGame = function() {
 getGame().then(function(game){
   var today = moment().tz('America/Chicago').format('dddd, MMMM Do');
   var tweetStart = 'Is There a Cubs Game Today? Today is ' + today;
-
-  var status;
-  if (!Array.isArray(game.val())) {
-    status = tweetStart + '. YES AT ' + game.val().eventTime;
-  } else if (Array.isArray(game.val())) {
-    status = tweetStart + '. YES. There are actually several games today. Check site for details.';
-  } else {
-    status = tweetStart + '. NO.';
+  function status() {
+    if (game.val() === null) {
+      // return "Is this thing on?";
+      return tweetStart + '. NO.';
+    } else if (Array.isArray(game.val())) {
+      // return "Don't mind me, just checking the mic.";
+      return tweetStart + '. YES. There are actually 2 games today. One at ' + game.val()[0].eventTime + ' and one at ' +  game.val()[1].eventTime;
+    } else if (!Array.isArray(game.val())) {
+      // return ((game.val().eventType === 'game') ? "Testing, testing" : "One two, one two three");
+      return tweetStart + ((game.val().eventType === 'game') ? '. YES AT ' + game.val().eventTime : '. WELL, There is a concert at ' + game.val().eventTime);
+    }
   }
 
-  // tweetStatus(status);
-  console.log('last tweet:', now, status);
+  tweetStatus(status());
+  // console.log('last tweet:', now, status());
 });

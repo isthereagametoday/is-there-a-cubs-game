@@ -17,7 +17,6 @@ Firebase.initializeApp(config);
 // bootstrap public/index.html
 app.use(serveStatic(__dirname + '/public'))
 
-
 // GET ./:date
 app.get('/:date', function(req, res) {
   console.log(req.params.date);
