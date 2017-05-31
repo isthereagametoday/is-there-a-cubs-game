@@ -45,6 +45,6 @@ eventStatus.then(function(game){
       return tweetStart + ((game.val().eventType === 'game') ? '. YES AT ' + game.val().eventTime : '. WELL, There is a concert at ' + game.val().eventTime);
     }
   }
-  console.log('last tweet:', today, status());
-  // tweetStatus(status());
+  // console.log('last tweet:', today, status());
+  tweetStatus(status());
 });
