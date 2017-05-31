@@ -31,12 +31,12 @@ class Home extends React.Component {
   }
 
   init() {
-    const now = dateUtils.getToday('', 10);
-    const eventStatus = apiUtils.getDate(now);
+    const today = dateUtils.getToday('', 10);
+    const eventStatus = apiUtils.getDate(today);
 
     eventStatus.then(date => {
       let eventType, eventTimes, check;
-      if (date != null) {
+      if (date.val() != null) {
         eventTimes = timesUtils.getTimes(date);
         eventType = date.eventType;
         check = true;

@@ -37,7 +37,6 @@
   },
   "homepage": "IsThisACubsGameToday.com",
   "dependencies": {
-    "axios": "^0.9.1",
     "babel": "^6.5.2",
     "babel-core": "^6.5.2",
     "babel-preset-es2015": "^6.5.0",
