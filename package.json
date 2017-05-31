@@ -60,6 +60,7 @@
     "serve-static": "^1.10.2",
     "twitter": "^1.2.5",
     "uglifyjs": "^2.4.10",
+    "uglify-js": "^2.6.2",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
@@ -79,7 +80,6 @@
     "react-addons-test-utils": "^0.14.8",
     "stylelint": "^4.4.0",
     "stylelint-config-standard": "^3.0.0",
-    "uglify-js": "^2.6.2",
     "watchify": "^3.7.0"
   },
   "babel": {
