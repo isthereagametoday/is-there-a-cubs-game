@@ -10,6 +10,7 @@
   "scripts": {
     "test": "mocha './tests/*.spec.js' --compilers js:babel-core/register -w -R nyan",
     "start": "node server.js",
+    "twitter": "node twitter.js",
     "lint-js": "./node_modules/eslint/bin/eslint.js . --ext .jsx,.js",
     "lint-css": "stylelint 'styles/cubsgame.scss'",
     "lint": "npm run lint-css && npm run lint-js",
