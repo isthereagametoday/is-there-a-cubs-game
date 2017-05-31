@@ -1,5 +1,5 @@
-import moment from 'moment';
-import tz from 'moment-timezone'; // eslint-disable-line no-unused-vars
+var moment = require('moment');
+var tz = require('moment-timezone'); // eslint-disable-line no-unused-vars
 
 const dateUtils = {
   getToday(format, strlength) {
@@ -7,4 +7,4 @@ const dateUtils = {
   },
 };
 
-export default dateUtils;
+module.exports = dateUtils;

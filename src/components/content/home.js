@@ -35,14 +35,15 @@ class Home extends React.Component {
     const eventStatus = apiUtils.getDate(now);
 
     eventStatus.then(date => {
-      let check;
-      if (date.status === 200) {
-        check = "yes";
-      } else if (date.status === 204) {
-        check = "no";
+      let eventType, eventTimes, check;
+      if (date != null) {
+        eventTimes = timesUtils.getTimes(date);
+        eventType = date.eventType;
+        check = true;
+      } else {
+        check = false;
+        eventType = eventTimes = null;
       }
-      const eventTimes = (check === "yes") ? timesUtils.getTimes(date) : null;
-      const eventType = (check === "yes") ? date.data.eventType : null;
       this.setState({
         result: check,
         times: eventTimes,
@@ -55,20 +56,20 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log(this.state.result);
-    let result = null;
-    if (this.state.result === "yes") {
-      result = <Yes times={this.state.times} type={this.state.type} />;
-    } else if (this.state.result === "no") {
-      result = <No />;
+    let message = null;
+    if (this.state.result === true) {
+      message = <Yes times={this.state.times} type={this.state.type} />;
+    } else if (this.state.result === false) {
+      message = <No />;
     } else {
-      result = " ";
+      message = " ";
     }
     return (
       <div className="row middle-xsmall center-xsmall">
         <div className="column-xsmall">
         <Header />
-          {result}
+
+          {message}
 
           <Nav link />
           <Seo />

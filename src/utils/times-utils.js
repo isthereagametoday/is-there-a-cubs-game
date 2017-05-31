@@ -1,9 +1,9 @@
 const timesUtils = {
   getTimes(status) {
   	let result = '';
-  	const times = status.data.eventTime.split(',');
+  	const times = status.length;
   	times.forEach(t => {
-    	result = (result === '') ? t : `${result} and ${t}`;
+    	result = (result === '') ? t.eventTime : `${result} and ${t.eventTime}`;
   	});
   return result;
   },
