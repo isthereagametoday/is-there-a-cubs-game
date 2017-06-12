@@ -11,8 +11,9 @@ import Home from '../src/components/content/home';
 import Yes from '../src/components/content/yes';
 import No from '../src/components/content/no';
 
-import jsdom from 'jsdom'
-const doc = jsdom.jsdom('<!doctype html><html><body></body></html>')
+import jsdom from 'jsdom';
+const doc = jsdom.jsdom('<!doctype html><html><body></body></html>');
+
 global.document = doc
 global.window = doc.defaultView
 
@@ -36,59 +37,83 @@ describe('the getting of today\'s date', function() {
 })
 
 
-describe('the getting of a game\'s status', function() {
+describe('the getting of a event\'s status', function() {
 
-  it('spits out today\'s game status as yes', function() {
-  	return getDate.getDate('2016-09-16')
+  it('spits out today\'s event status as yes', function() {
+    return getDate.getDate('2017-06-19')
+      .then(value => {
+        expect(value.val().eventDate).to.equal('2017-06-19');
+    })
+  })
+
+  it('spits out today\'s event status as no', function() {
+    return getDate.getDate('2017-06-18')
+      .then(value => {
+        expect(value.val()).to.be.null;
+    })
+  })
+
+})
+
+describe('the getting of a event\'s time', function() {
+
+  it('spits out one time', function() {
+  	return getDate.getDate('2017-06-19')
   		.then(function(value) {
-        expect(value.data[0].eventType).to.equal('game');
+  			const eventTime = getTimes.getTimes(value);
+        expect(eventTime).to.have.length.of.at.least(7);
   	})
  	})
 
- 	it('spits out today\'s game status as no', function() {
-  	return getDate.getDate('2001-09-16')
+ 	it('spits out multiple times', function() {
+  	return getDate.getDate('2017-04-10')
   		.then(function(value) {
-        expect(value.data[0]).to.be.undefined;
+  			const eventTimes = getTimes.getTimes(value);
+        expect(eventTimes).to.have.length.of.at.least(19);
   	})
  	})
 
 })
 
-describe('the getting of a game\'s times', function() {
+describe('the getting of a event\'s type', function() {
 
-  it('spits out one time', function() {
-  	return getDate.getDate('2016-09-16')
-  		.then(function(value) {
-  			const gameTime = getTimes.getTimes(value);
-        expect(gameTime).to.have.length.of.at.least(7);
-  	})
- 	})
+  it('spits out an event as a game', function() {
+    return getDate.getDate('2017-06-19')
+      .then(value => {
+        expect(value.val().eventType).to.equal('game');
+    })
+  })
 
- 	it('spits out multiple times', function() {
-  	return getDate.getDate('2016-08-16')
-  		.then(function(value) {
-  			const gameTimes = getTimes.getTimes(value);
-        expect(gameTimes).to.have.length.of.at.least(19);
-  	})
- 	})
+  it('spits out an event as a concert', function() {
+    return getDate.getDate('2017-07-01')
+      .then(value => {
+        expect(value.val().eventType).to.equal('concert');
+    })
+  })
 
 })
 
 describe('the getting of a game\'s messaging', function() {
 
   it('renders the yes message', function() {
-    const component = mount(<Yes times={'9:99 PM'} />);
+    const component = mount(<Yes times={"9:99 PM"} />);
     expect(component.text()).to.equal('YES at 9:99 PM.');
  	})
 
- 	it('renders the no message', function() {
+ 	it('renders the no event message', function() {
     const component = mount(<No />);
     expect(component.text()).to.equal('NO.');
  	})
 
- 	it('renders the multiple message', function() {
+ 	it('renders the multiple game message', function() {
     const component = mount(<Yes times={'9:99 PM and 7:77 PM'} />);
     expect(component.text()).to.equal('YES. There are actually 2 games today, at 9:99 PM and 7:77 PM.');
  	})
+
+  it('renders the concert message', function() {
+    const component = mount(<Yes times={'6:66 PM'} type={'concert'} />);
+    expect(component.text()).to.equal('WELL, There is actually a concert today at 6:66 PM.');
+  })
+
 })
 

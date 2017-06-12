@@ -6,11 +6,11 @@ const config = {
   databaseURL: "https://istheregametoday.firebaseio.com"
 };
 
-Firebase.initializeApp(config);
+var firebase = Firebase.initializeApp(config);
 
 const apiUtils = {
   getDate(date) {
-  	return Firebase.database().ref('cubs/' + date).once('value');
+  	return firebase.database().ref('cubs/' + date).once('value');
 	}
 };
 
